@@ -4,7 +4,7 @@ import { login } from '../util/auth'
 
 export default function Login(){
 
-    const [userData, setUserData] = useState({ username: '', error: '' })
+    const [userData, setUserData] = useState({ login: '', error: '' })
 
 
     function handleChange(event){
@@ -17,7 +17,7 @@ export default function Login(){
         event.preventDefault()
         setUserData(Object.assign({}, userData, { error: '' }))
     
-        const username = userData.username
+        const login = userData.login
         const password = userData.password
 
         const url = '/api/login'
@@ -26,7 +26,7 @@ export default function Login(){
           const response = await fetch(url, {
             method: 'POST',  
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ login, password }),
           })
 
           if (response.status === 200) {
@@ -64,8 +64,8 @@ export default function Login(){
             <div className="row">
               <div className="input-field">
                 <input type="text"
-                      id="username"
-                      value={userData.username} 
+                      id="login"
+                      value={userData.login} 
                       
                       onChange={ event => handleChange(event)}
                       >

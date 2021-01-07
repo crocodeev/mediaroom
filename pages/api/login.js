@@ -11,7 +11,8 @@ async function handler (req, res) {
     if(req.method === "POST"){
       //take credetial from request
 
-      const { username, password} = await req.body
+      const { login, password} = await req.body
+
 
       try{
 
@@ -19,12 +20,9 @@ async function handler (req, res) {
 
         const {
           _id,
-          userName,
           passwordHash,
           role 
-        } = await User.findOne({ userName: username})
-
-
+        } = await User.findOne({ login })
 
         //compare passwords
         const match = await bcrypt.compare(password, passwordHash)

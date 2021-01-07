@@ -1,14 +1,34 @@
 import React from 'react'
 import { Layout } from '../components/Layout'
 import withSession from '../util/session'
+import dbConnect from '../util/mongoosedb'
+import User from '../models/User'
+import ListElement from '../components/DasboardComponents/ListElement'
 
-const Dashboard = ({id, role}) => {
+const Dashboard = ({data}) => {
 
     return(
-        <Layout 
-        role={role}>
-         <h1>{role}</h1>
-         <h1>{id}</h1>     
+        <Layout>
+         <table className="highlight">
+           <thead>
+           <tr>
+              <th>Name</th>
+              <th>Login</th>
+              <th>Channels</th>
+              <th>Status</th>
+              <th>Actions</th>
+          </tr>
+           </thead>
+           <tbody>
+           {data.map( (elem, index) => <ListElement
+            name={elem.name}
+            login={elem.login}
+            channels={elem.channels}
+            active={elem.active}
+            key={index}
+            />)}
+           </tbody>
+           </table>
         </Layout>    
 
     )
@@ -24,13 +44,23 @@ export const getServerSideProps = withSession(
         res.end()
         return { props: {} }
       }
-  
-      return {
+
+      try {
+        await dbConnect()
+
+        const data =  await User.find({ role: "user" }, 'name login channels active').exec()
+
+        return {
           props:{
-              id: id,
-              role: role
+              data: JSON.parse(JSON.stringify(data))
           } 
       }
+
+      } catch (error) {
+        console.log(error)
+      }
+  
+      
     }
   )
 

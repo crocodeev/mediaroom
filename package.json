@@ -10,7 +10,7 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "js-cookie": "^2.2.1",
-    "materialize-css": "^1.0.0-rc.2",
+    "material-ui": "^0.20.2",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.10",
     "next": "10.0.3",

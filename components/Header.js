@@ -28,7 +28,6 @@ export default function Header ({ role }){
         <style jsx>{`
         nav {
             top: 0px;
-            position: absolute;
             background: transparent;
             padding-inline: 10px;
         }
@@ -36,3 +35,14 @@ export default function Header ({ role }){
       </nav>
     )
 }
+
+/*
+<style jsx>{`
+        nav {
+            top: 0px;
+            position: absolute;
+            background: transparent;
+            padding-inline: 10px;
+        }
+        `}</style>
+ */

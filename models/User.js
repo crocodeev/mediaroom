@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const schema = new mongoose.Schema(
     {
         name: String,
-        userName: { type: String, required: true, unique: true},
+        login: { type: String, required: true, unique: true},
         passwordHash:{ type: String, required: true },
         role:{ type:String, required: true},
         channels:[String],
@@ -12,4 +12,4 @@ const schema = new mongoose.Schema(
 )
 
 
-export default  mongoose.models.User || mongoose.model('User', PetSchema)
+export default  mongoose.models.User || mongoose.model('User', schema)
