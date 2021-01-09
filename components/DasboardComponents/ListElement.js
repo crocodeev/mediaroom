@@ -7,11 +7,12 @@ export default function ListElement ({
     login,
     channels,
     active,
-    index
+    index,
+    openModal,
 }) {
 
     return(
-        <tr>
+        <tr key={index}>
             <th>
                 {name}
             </th>
@@ -19,14 +20,15 @@ export default function ListElement ({
                 {login}
             </th>
             <th>
-                {channels.map( elem => <h6>{elem + ' '}</h6>)}
+                {channels.map( (elem, index) => <h6 key={index}>{elem + ' '}</h6>)}
             </th>
             <th>
              <UserStatus isActive={active}/>
             </th>
             <th>
-            <EditButton />
-
+            <EditButton
+            index={index} 
+            openModal={openModal}/>
             <DeleteButton />
             </th>
         </tr>
