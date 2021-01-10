@@ -7,12 +7,9 @@ import VolumeControl from '../components/Player/VolumeControl'
 import { useState, useRef, useEffect } from 'react'
 import { Howler } from 'howler'
 import { Layout } from '../components/Layout'
-import withSession from '../util/session'
 
 const sound = new Sound()
-
-if(process.browser) window.sound = sound
-
+window.sound = sound
 
 
 const Player = ({id, role}) => {
@@ -103,6 +100,7 @@ const isStarted = useRef(false)
 
  return(
 
+    <Layout role={role}> 
     <div className="container container-player">
         <Caption texts={artist}/>
         <Caption texts={title}/>
@@ -130,7 +128,7 @@ const isStarted = useRef(false)
             </Channel>  
         </div>
     </div>
-    
+    </Layout> 
  )
 
 }

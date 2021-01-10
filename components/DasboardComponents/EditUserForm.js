@@ -16,7 +16,7 @@ export default function EditUserForm({ closeModal,
                                               password:'',
                                               channels:[],
                                               error: '' })
-
+                                              
    useEffect(() => {
 
       const userInitialProfile = {
@@ -31,11 +31,16 @@ export default function EditUserForm({ closeModal,
          Object.assign({}, userData, userInitialProfile)
       )
       
-   }, [])                                           
+   }, [])
    
+
    function handleChange(event){
+   
       setUserData(
-         Object.assign({}, userData, { [event.target.id]: event.target.value })
+         Object.assign({}, userData, { 
+            // if status checkbox - toggle value
+            [event.target.id]: event.target.type === "checkbox" ? event.target.checked : event.target.value 
+          })
       )
    }
    
@@ -111,8 +116,8 @@ export default function EditUserForm({ closeModal,
             <label htmlFor="status">
             <input id="status" 
                    type="checkbox" 
-                   className="filled-in" 
-                   {...(status ? {checked: "checked"} : {})}
+                   className="filled-in"
+                   checked={userData.status}
                    onChange={handleChange}
                    />
             <span>Status</span>

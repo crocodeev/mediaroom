@@ -1,6 +1,6 @@
 {
-  "name": "cookie-auth",
-  "version": "0.1.0",
+  "name": "mediaroom",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,17 +9,22 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "events": "^3.2.0",
+    "howler": "^2.2.1",
     "js-cookie": "^2.2.1",
     "material-ui": "^0.20.2",
     "materialize-css": "^1.0.0-rc.2",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.10",
+    "music-metadata-browser": "^2.1.9",
     "next": "10.0.3",
     "next-cookies": "^2.0.3",
     "next-iron-session": "^4.1.10",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-input-slider": "^6.0.0",
     "react-materialize": "^3.9.6",
-    "react-modal": "^3.12.1"
+    "react-modal": "^3.12.1",
+    "save": "^2.4.0"
   }
 }

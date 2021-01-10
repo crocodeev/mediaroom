@@ -11,7 +11,7 @@ async function handler (req, res) {
     if(req.method === "POST"){
       //take credetial from request
 
-      const { login, password} = await req.body
+      const { login, password } = await req.body
 
 
       try{

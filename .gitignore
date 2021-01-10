@@ -35,3 +35,5 @@ yarn-error.log*
 
 #custom
 /helpers/*
+/dbEmulation/music/*
+/public/images/*
