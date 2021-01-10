@@ -2,6 +2,7 @@ import { Select } from 'react-materialize'
 
 
 export default function Selector ({ availableChannels, previousChannels }){
+
     
     return(
         <Select

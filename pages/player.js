@@ -13,9 +13,8 @@ const sound = new Sound()
 
 if(process.browser) window.sound = sound
 
-
-
 const Player = ({id, role}) => {
+
 
 function changePicture(channel){
     

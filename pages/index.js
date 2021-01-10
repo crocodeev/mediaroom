@@ -3,14 +3,6 @@ import Login from '../components/Login'
 
 export default function Home() {
 
-  
-  function handleSubmit(event){
-    event.preventDefault()
-    console.log(event.target)
-  }
-  
-
-
   return (
     <div>
       <Head>
