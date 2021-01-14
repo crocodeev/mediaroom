@@ -1,14 +1,9 @@
 import Header from './Header'
 import { useEffect } from 'react'
 
-export function Layout({role, children}){
 
-    useEffect( async () => {
-        if(process.browser) {
-            const M = await import('materialize-css')
-            M.AutoInit()
-        }
-    },[])
+
+export function Layout({role, children}){
 
     return(
     <div className="container">

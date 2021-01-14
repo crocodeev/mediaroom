@@ -1,13 +1,14 @@
 import { Select } from 'react-materialize'
 
 
-export default function Selector ({ availableChannels, previousChannels }){
+export default function Selector ({ channels,
+                                    onChange }){
 
     
     return(
         <Select
             id="Select"
-            multiple
+            multiple={false}
             options={{
                 classes: '',
                 dropdownOptions: {
@@ -25,16 +26,10 @@ export default function Selector ({ availableChannels, previousChannels }){
                 outDuration: 250
                 }
             }}
-            value={previousChannels}
+            value={Channels[0].name}
             >
-            <option
-                disabled
-                value=""
-            >
-                Choose channels
-            </option>
-            
-            { availableChannels.map( (elem) =>  <option key={elem.name} value={elem.name}>{elem.name}</option>  ) }
+           
+            { Channels.map( (elem) =>  <option key={elem.name} value={elem.name}>{elem.name}</option>  ) }
 
             </Select>
     )

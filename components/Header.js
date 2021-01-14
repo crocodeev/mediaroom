@@ -1,10 +1,7 @@
+import { Howler } from 'howler'
 import Router from 'next/router'
 
 export default function Header ({ role }){
-
-    async function createUser(){
-      console.log("user created")
-    }
 
     async function handleLogout(){
         const url = '/api/logout'
@@ -13,6 +10,11 @@ export default function Header ({ role }){
                 method: 'POST',  
               })
             
+            //stop music, if logout from player page  
+            if(Howler){
+              Howler.stop()
+            }  
+
             Router.push('/')  
                
         } catch (error) {
@@ -26,12 +28,15 @@ export default function Header ({ role }){
         <div className="nav-wrapper">
           <a href="#" className="brand-logo">MEDIAROOM</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            { role === "manager" ? <li><a onClick={createUser}>Create</a></li> : null }
+            { role === "manager" ? <li><a onClick={() => console.log("creating user")}>Create</a></li> : null }
+            { role === "user" ? <li><a onClick={() => console.log("shedule")}>Schedule</a></li> : null }
             <li><a onClick={handleLogout}>Logout</a></li>
           </ul>
         </div>
         <style jsx>{`
         nav {
+            position: fixed;
+            left: 0px;
             top: 0px;
             background: transparent;
             padding-inline: 10px;

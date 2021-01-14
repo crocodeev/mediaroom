@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { redirectClient } from '../util/redirect'
-import { login } from '../util/auth'
 
 export default function Login(){
 

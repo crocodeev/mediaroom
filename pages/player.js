@@ -1,19 +1,25 @@
-import ToggleButton from '../components/Player/ToggleButton'
-import Caption from '../components/Player/Caption'
-import Channel from '../components/Player/Channel'
+import ToggleButton from '../components/PlayerComponents/ToggleButton'
+import Caption from '../components/PlayerComponents/Caption'
+import Channel from '../components/PlayerComponents/Channel'
 import Sound from '../soundEngine/sound'
-import Equlizer from '../components/Player/Equlizer'
-import VolumeControl from '../components/Player/VolumeControl'
+import Equlizer from '../components/PlayerComponents/Equlizer'
+import VolumeControl from '../components/PlayerComponents/VolumeControl'
 import { useState, useRef, useEffect } from 'react'
 import { Howler } from 'howler'
 import { Layout } from '../components/Layout'
 import withSession from '../util/session'
+import dbConnect from '../util/mongoosedb'
+import User from '../models/User'
+
 
 const sound = new Sound()
 
 if(process.browser) window.sound = sound
 
-const Player = ({id, role}) => {
+const Player = ({
+  role,
+  channels
+}) => {
 
 
 function changePicture(channel){
@@ -102,6 +108,7 @@ const isStarted = useRef(false)
 
  return(
 
+    <Layout role={role}>
     <div className="container container-player">
         <Caption texts={artist}/>
         <Caption texts={title}/>
@@ -125,11 +132,12 @@ const isStarted = useRef(false)
         </div>
         <div className="row ">
         <Channel
+            channels={channels}
             onChange={setChannel}>
-            </Channel>  
+        </Channel>  
         </div>
     </div>
-    
+    </Layout>
  )
 
 }
@@ -138,19 +146,55 @@ export const getServerSideProps = withSession(
 
     async ({ req, res }) => {
       const { id, role} = req.session.get("user")
+      
+      console.log(id)
   
       if (!id) {
+
         res.statusCode = 404
         res.end()
         return { props: {} }
       }
-  
-      return {
+
+      //request to database 
+
+      try {
+
+        await dbConnect()
+
+        const rawData = await User.findOne({ _id: id }, 'name channels isActive').exec()
+
+        const {
+          isActive,
+          channels
+        } = JSON.parse(JSON.stringify(rawData))
+        
+      
+        //check if user is deactivated? then redirect
+
+        if(!isActive){
+          res.statusCode = 302
+          res.setHeader('Location', '/unpaid')
+          res.end()
+        }
+
+        return {
           props:{
-              id: id,
+              channels:  channels,
               role: role
           } 
       }
+
+      } catch (error) {
+        console.log(error)
+      }
+
+      return{
+        props:{
+
+        }
+      }
+
     }
   )
 

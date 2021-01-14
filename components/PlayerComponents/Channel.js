@@ -1,11 +1,13 @@
 import { Select } from 'react-materialize';
-//import 'materialize-css'
 
-export default function Channel(props){
+export default function Channel({
+  channels,
+  onChange
+}){
 
    return(
     <div className="container container-content-center">
-    <form onChange={ event => props.onChange(event)}>
+    <form onChange={ event => onChange(event)}>
     <Select
     id="Channel"
     multiple={false}
@@ -33,14 +35,9 @@ export default function Channel(props){
       disabled
       value=""
     >
-      Choose your option
+      Choose your channel
     </option>
-    <option value="soft">
-      Soft
-    </option>
-    <option value="hard">
-      Hard
-    </option>
+    {channels.map((elem) => <option >{elem}</option>)}
   </Select>
   </form>
   <style jsx global>

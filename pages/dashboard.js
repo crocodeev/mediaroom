@@ -59,7 +59,7 @@ const Dashboard = ({users, availableChannels, role}) => {
             name={elem.name}
             login={elem.login}
             channels={elem.channels}
-            active={elem.active}
+            active={elem.isActive}
             key={index}
             index={index}
             openModal={openModal}
@@ -101,7 +101,7 @@ export const getServerSideProps = withSession(
       try {
         await dbConnect()
 
-        const users =  await User.find({ role: "user" }, 'name login channels active').exec()
+        const users =  await User.find({ role: "user" }, 'name login channels isActive').exec()
         const availableChannels = await Channel.find({}, 'name').exec()
 
         return {
