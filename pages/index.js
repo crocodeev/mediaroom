@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Login from '../components/Login'
 
-export default function Home() {
+const  Home = () => {
 
   return (
     <div>
@@ -18,5 +18,24 @@ export default function Home() {
   )
 }
 
+export const getServerSideProps = ({req, res}) => {
+  
+  if( !('session' in req) ){
 
+    return{
+      redirect:{
+        destination: '/login',
+        permanent: false
+      } 
+    }
+  } 
 
+  return {
+    props:{
+
+    }
+  }
+
+}
+
+export default Home
