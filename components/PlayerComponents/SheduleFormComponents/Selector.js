@@ -27,7 +27,7 @@ export default function Selector ({ channels,
                 outDuration: 250
                 }
             }}
-            value={channels[0]}
+            value={channels[0]}    
             >
            
             { channels.map( (elem) =>  <option  key={elem} value={elem}>{elem}</option>  ) }
