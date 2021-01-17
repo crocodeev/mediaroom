@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Layout } from '../components/Layout'
+import Layout from '../components/Layout'
 import withSession from '../util/session'
 import dbConnect from '../util/mongoosedb'
 import User from '../models/User'

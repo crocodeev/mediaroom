@@ -9,6 +9,7 @@ export default function Selector ({ channels,
         <Select
             id="Select"
             multiple={false}
+            onChange={(event)=>console.log(event.value)}
             options={{
                 classes: '',
                 dropdownOptions: {
@@ -26,10 +27,10 @@ export default function Selector ({ channels,
                 outDuration: 250
                 }
             }}
-            value={Channels[0].name}
+            value={channels[0]}
             >
            
-            { Channels.map( (elem) =>  <option key={elem.name} value={elem.name}>{elem.name}</option>  ) }
+            { channels.map( (elem) =>  <option  key={elem} value={elem}>{elem}</option>  ) }
 
             </Select>
     )

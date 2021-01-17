@@ -37,7 +37,7 @@ export default function Channel({
     >
       Choose your channel
     </option>
-    {channels.map((elem) => <option >{elem}</option>)}
+    {channels.map((elem) => <option key={elem} >{elem}</option>)}
   </Select>
   </form>
   <style jsx global>

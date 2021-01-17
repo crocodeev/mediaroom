@@ -1,41 +1,75 @@
-import Head from 'next/head'
-import Login from '../components/Login'
+import Layout from "../components/Layout"
+import withSession from "../util/session"
+
+//this page we use as server side redirect
 
 const  Home = () => {
 
   return (
-    <div>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <Login />
-      </main>
-
-    </div>
+    <Layout />
   )
 }
 
-export const getServerSideProps = ({req, res}) => {
-  
-  if( !('session' in req) ){
+export const getServerSideProps = withSession(
+  async ({req, res}) => {
 
-    return{
+    //trying to destructure object
+    const { id = null, role = null } = req.session.get("user") || {}
+
+    //if cookies doesn't exist redirect to login page
+    if(!id){
+     return{
       redirect:{
-        destination: '/login',
+        destination: "/login",
         permanent: false
-      } 
+      }
     }
-  } 
-
-  return {
-    props:{
-
     }
+    //check role in cookie and redirect
+    switch (role) {
+      case "user":
+        return{
+          redirect: {
+            destination: "/player",
+            permanent: false
+          }
+        }
+        break
+      case "manager":
+        return{
+          redirect: {
+            destination: "/dashboard",
+            permanent: false
+          }
+        }
+        break
+      case "editor":
+        return{
+          redirect: {
+            destination: "/library",
+            permanent: false
+          }
+        }
+        break
+      case "editor":
+        return{
+          redirect: {
+            destination: "/control",
+            permanent: false
+          }
+        }  
+        break
+      default:
+        return{
+          redirect: {
+            destination: "/login",
+            permanent: false
+          }
+        }  
+        break
+    }
+    
   }
-
-}
+)
 
 export default Home

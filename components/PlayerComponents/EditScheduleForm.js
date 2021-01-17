@@ -1,9 +1,11 @@
-import Selector from './Selector'
+import Selector from './SheduleFormComponents/Selector'
+import TimePicker from './SheduleFormComponents/TimePicker'
 import { useState, useEffect} from 'react'
 
 
 export default function EditScheduleForm({
-    channels
+    channels,
+    closeModal
 }){
    
                                                                                                          
@@ -22,7 +24,9 @@ export default function EditScheduleForm({
           <form className="col s12">
 
             <div className="row">
-            
+            <div className="col s12">
+              <Selector channels={channels}/>
+            </div>
             </div>
 
             <div className="row">

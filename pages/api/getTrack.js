@@ -9,7 +9,7 @@ export default function getTrack(req,res){
 
         const params =  req.body
         console.log(playlist[params.channel][params.time][params.number])
-        const trackPath = playlist[params.channel][params.time][params.number]
+        const trackPath = process.cwd() + playlist[params.channel][params.time][params.number]
 
         const file = fs.createReadStream(trackPath)
 

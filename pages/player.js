@@ -6,20 +6,47 @@ import Equlizer from '../components/PlayerComponents/Equlizer'
 import VolumeControl from '../components/PlayerComponents/VolumeControl'
 import { useState, useRef, useEffect } from 'react'
 import { Howler } from 'howler'
-import { Layout } from '../components/Layout'
+import Layout from '../components/Layout'
 import withSession from '../util/session'
 import dbConnect from '../util/mongoosedb'
+import Modal from 'react-modal'
+import EditScheduleForm from '../components/PlayerComponents/EditScheduleForm'
 import User from '../models/User'
 
+const customStyles = {
+  content : {
+    width                 : '60%', 
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  },
+  overlay: {zIndex: 1000}
+}
 
 const sound = new Sound()
 
 if(process.browser) window.sound = sound
 
+Modal.setAppElement('#__next')
+
 const Player = ({
   role,
   channels
 }) => {
+
+//modal works  
+const [modalIsOpen, setIsOpen] = useState(false)
+
+function closeModal(){
+  setIsOpen(false)
+}
+
+function openModal(){
+  setIsOpen(true)
+}
 
 
 function changePicture(channel){
@@ -108,7 +135,7 @@ const isStarted = useRef(false)
 
  return(
 
-    <Layout role={role}>
+    <Layout role={role} openModal={openModal}>
     <div className="container container-player">
         <Caption texts={artist}/>
         <Caption texts={title}/>
@@ -137,6 +164,16 @@ const isStarted = useRef(false)
         </Channel>  
         </div>
     </div>
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      contentLabel="Edit Schedule"
+      styles={customStyles}
+      >
+    <EditScheduleForm 
+    closeModal={closeModal}
+    channels={channels}/>  
+    </Modal>
     </Layout>
  )
 
@@ -145,19 +182,21 @@ const isStarted = useRef(false)
 export const getServerSideProps = withSession(
 
     async ({ req, res }) => {
-      const { id, role} = req.session.get("user")
-      
-      console.log(id)
-  
-      if (!id) {
 
-        res.statusCode = 404
-        res.end()
-        return { props: {} }
+
+      const { id = null, role = null} = req.session.get("user") || {}
+    
+      //if no cookies, redirect to login page
+      if (!id) {
+        return { 
+            redirect:{
+              destination: '/login',
+              permanent: false
+            }
+         }
       }
 
-      //request to database 
-
+      // requset to database
       try {
 
         await dbConnect()
@@ -173,9 +212,12 @@ export const getServerSideProps = withSession(
         //check if user is deactivated? then redirect
 
         if(!isActive){
-          res.statusCode = 302
-          res.setHeader('Location', '/unpaid')
-          res.end()
+          return { 
+            redirect:{
+              destination: '/unpaid',
+              permanent: false
+            }
+         }
         }
 
         return {

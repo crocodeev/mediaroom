@@ -1,7 +1,7 @@
 import { Howler } from 'howler'
 import Router from 'next/router'
 
-export default function Header ({ role }){
+export default function Header ({ role, openModal }){
 
     async function handleLogout(){
         const url = '/api/logout'
@@ -29,7 +29,7 @@ export default function Header ({ role }){
           <a href="#" className="brand-logo">MEDIAROOM</a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             { role === "manager" ? <li><a onClick={() => console.log("creating user")}>Create</a></li> : null }
-            { role === "user" ? <li><a onClick={() => console.log("shedule")}>Schedule</a></li> : null }
+            { role === "user" ? <li><a onClick={openModal}>Schedule</a></li> : null }
             <li><a onClick={handleLogout}>Logout</a></li>
           </ul>
         </div>

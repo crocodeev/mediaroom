@@ -1,7 +1,12 @@
+import Login from '../components/Login'
+import Layout from '../components/Layout'
+
 const LoginPage = () => {
 
     return(
-        <h1>LOGIN HERE</h1>
+        <Layout >
+            <Login />
+        </Layout>
     )
 }
 
