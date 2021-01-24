@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "aws-sdk": "^2.831.0",
     "bcrypt": "^5.0.0",
     "events": "^3.2.0",
     "howler": "^2.2.1",
@@ -26,5 +27,9 @@
     "react-materialize": "^3.9.6",
     "react-modal": "^3.12.1",
     "save": "^2.4.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "music-metadata": "^7.6.4"
   }
 }
