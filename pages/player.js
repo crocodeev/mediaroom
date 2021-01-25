@@ -68,6 +68,8 @@ function changePicture(channel){
     fetch("http://localhost:3000/api/getPicture", requestOptions)
     .then(data => data.blob())
     .then(blob => {
+
+      console.log(blob)
         const url = URL.createObjectURL(blob)
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(${url})`
         document.getElementsByTagName("body")[0].style.backgroundSize = "cover"
